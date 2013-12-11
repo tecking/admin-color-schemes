@@ -23,7 +23,7 @@ class ACS_Color_Schemes {
 	);
 
 	function __construct() {
-		add_action( 'admin_init', array( $this, 'load_default_css' ), 20 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'load_default_css' ) );
 		add_action( 'admin_init' , array( $this, 'add_colors' ) );
 	}
 
@@ -92,8 +92,9 @@ class ACS_Color_Schemes {
 	}
 
 	/**
-	 * Make sure `colors-fresh.css` gets enqueued, since we can't @import it
-	 * from a plugin stylesheet.
+	 * Make sure core's default `colors.css` gets enqueued, since we can't
+	 * @import it from a plugin stylesheet. Also force-load the default colors 
+	 * on the profile screens, so the JS preview isn't broken-looking.
 	 */ 
 	function load_default_css() {
 
@@ -101,14 +102,10 @@ class ACS_Color_Schemes {
 
 		$color_scheme = get_user_option( 'admin_color' );
 
-		if ( $color_scheme == 'fresh' )
-			return;
-
-		if ( ! in_array( $color_scheme, $this->colors ) )
-			return;
-
-		// Need to enqueue the RTL version of 'colors-fresh' to get things pointing the right way, see #26316
-		$wp_styles->registered[ 'colors' ]->deps[] = 'colors-fresh';
+		$scheme_screens = apply_filters( 'acs_picker_allowed_pages', array( 'profile', 'profile-network' ) );
+		if ( in_array( $color_scheme, $this->colors ) || in_array( get_current_screen()->base, $scheme_screens ) ){
+			$wp_styles->registered[ 'colors' ]->deps[] = 'colors-fresh';
+		}
 
 	}
 
