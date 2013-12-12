@@ -1,6 +1,7 @@
 <?php
 /**
 Plugin Name: Admin Color Schemes
+Plugin URI: http://wordpress.org/plugins/admin-color-schemes/
 Description: Even more admin color schemes
 Version: 1.0
 Author: WordPress Core Team
