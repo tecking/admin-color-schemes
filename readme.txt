@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: ryelle, melchoyce, drw158, littlethingsstudio
+Contributors: wordpressdotorg, ryelle, melchoyce, drw158, littlethingsstudio
 Requires at least: 3.8
 Tested up to: 3.8
 Stable tag: trunk
