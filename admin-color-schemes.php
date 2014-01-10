@@ -44,6 +44,7 @@ class ACS_Color_Schemes {
 	);
 
 	function __construct() {
+		load_plugin_textdomain( 'admin_schemes', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_default_css' ) );
 		add_action( 'admin_init' , array( $this, 'add_colors' ) );
 	}
